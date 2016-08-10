@@ -5,5 +5,5 @@ Mine Sweeper Game
 ###Justin Moore
 
 This is the classic Mine Sweeper game
-the game i s built using javascript
+the game is built using javascript
 
