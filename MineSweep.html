@@ -36,8 +36,21 @@
 				//function that re-daraws the canvas everytime its updated
 				context.clearRect(0,0,400,400);
 
-				context.drawImage(box,10,10);
+				//This for loop is used to create a 10x10 box for the game
+				//the outter loop is for the rows and the inner loop is for the columns
 
+				for(var i = 0; i < setting.rows; ++i)
+				{
+					for(var j = 0; j < setting.cols; ++j)
+					{
+
+						var x = (j * setting.width);
+						var y = (i * setting.height);
+						context.drawImage(box,x,y);
+					}
+				}
+
+				//context.drawImage(box,10,10);
 			}
 		</script>
 	</head>
