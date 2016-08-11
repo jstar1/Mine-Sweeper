@@ -3,10 +3,41 @@
 <html>
 	<head>
 		<script>
+			var setting = {
+				//settings class
+				rows:10, //rows for the box
+				cols: 10, //coloumns for the box
+				width: 30, //width of each square within the box
+				height: 30, //height of each square within the box
+			};
+
+			var context;
+			
 			window.onload = function(){
-				var canvas = document.getElementById("myCanvas");
-				var context = canvas.getContext("2d");
-				context.fillRect(50,50,300,300);
+				var canvas = document.getElementById("myCanvas"); //setting the canvas
+				context = canvas.getContext("2d"); //setting the context
+				
+				startGame(); //function that will initialize the game
+
+				//ontext.fillRect(50,50,300,300);
+			}
+			
+			var box
+
+			function startGame(){
+
+				box = new Image();
+				box.src = "box.png";
+
+				drawCanvas();
+			}
+
+			function drawCanvas(){
+				//function that re-daraws the canvas everytime its updated
+				context.clearRect(0,0,400,400);
+
+				context.drawImage(box,10,10);
+
 			}
 		</script>
 	</head>
@@ -15,7 +46,7 @@
 
 		</div>
 		<div id="gameCanvas">
-			<canvas id ='myCanvas' witdth= '400' height ='400'></canvas>
+			<canvas id ='myCanvas' witdth= '400' height ='400'></canvas> 
 		</div>
 	</body>
 </html>
