@@ -6,7 +6,7 @@
 			body{
 				margin: 0;
 			}
-		</style>>
+		</style>
 		<script>
 			var setting = {
 				//settings class
@@ -27,11 +27,20 @@
 
 			var MouseX; //determine where the user is clicking on the X coord
 			var MouseY; //determine where the user is clicking on the Y coord
-			
+			var mouseDownY //click Y
+			var mouseDownX //click X
+
 			window.onclick = function(event){
 				MouseX = event.pageX;
 				MouseY = event.pageY;
 
+
+				//this will be used to determine the coord of the box.
+				if(Math.floor(MouseX/setting.width) < setting.cols && Math.floor(MouseY/setting.height) < setting.rows)
+				{
+					mouseDownX = Math.floor(MouseX/setting.width);
+					mouseDownY = Math.floor(MouseY/setting.height);
+				}
 			}
 			
 			var box
