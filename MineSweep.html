@@ -24,6 +24,15 @@
 				
 				startGame(); //function that will initialize the game
 			}
+
+			var MouseX; //determine where the user is clicking on the X coord
+			var MouseY; //determine where the user is clicking on the Y coord
+			
+			window.onclick = function(event){
+				MouseX = event.pageX;
+				MouseY = event.pageY;
+
+			}
 			
 			var box
 
