@@ -17,6 +17,7 @@
 			};
 
 			var context;
+			var bombs = []; //array for bombs			
 			
 			window.onload = function(){
 				var canvas = document.getElementById("myCanvas"); //setting the canvas
@@ -41,6 +42,19 @@
 					mouseDownX = Math.floor(MouseX/setting.width);
 					mouseDownY = Math.floor(MouseY/setting.height);
 				}
+
+				var bombClicked = false;
+
+				for(var i = 0; i < 10; ++i)
+				{
+					if(mouseDownX === bombs[i][0] && mouseDownY === bombs[i][1])
+					{
+						//lose();
+					}
+				}
+
+
+
 			}
 			
 			var box
@@ -49,6 +63,18 @@
 
 				box = new Image();
 				box.src = "box.png";
+
+				//for loop for randomly placing the bombs within the grid
+				//this floor loop places 10 bombs within the grid
+				//I use floor so that the number is whole
+				for(var i = 0; i < 10; i++)
+				{
+					bombs[i] = [Math.floor(Math.random()*10),
+								Math.floor(Math.random()*10)
+								]
+				}
+
+				
 
 				drawCanvas();
 			}
@@ -70,6 +96,7 @@
 					}
 				}
 			}
+			function lose(){}
 		</script>
 	</head>
 	<body>
