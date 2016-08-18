@@ -53,7 +53,10 @@
 					}
 				}
 
-
+				if(bombClicked === false)
+				{
+					clickPass();
+				}
 
 			}
 			
@@ -67,11 +70,11 @@
 				//for loop for randomly placing the bombs within the grid
 				//this floor loop places 10 bombs within the grid
 				//I use floor so that the number is whole
-				for(var i = 0; i < 10; i++)
+				for(var i = 0; i < 10; ++i)
 				{
 					bombs[i] = [Math.floor(Math.random()*10),
 								Math.floor(Math.random()*10)
-								]
+								];
 				}
 
 				
@@ -96,6 +99,49 @@
 					}
 				}
 			}
+			
+			//function checks coords to see if box and touching any bombs
+			function clickPass(){
+				var checkBox = [
+					[-1,-1],
+					[0,-1],
+					[1,-1],
+					[1,0],
+					[1,1],
+					[0,1],
+					[-1,1],
+					[-1,0]
+				];	
+
+				var bombsSurronding = 0; //bombs surronding the tile clicked
+				
+				//loop through multi-dim array
+				//check if box relative to coord system is a bomb
+				for(i in checkBox)
+				{
+
+					for(var j = 0; j < 10; ++j)
+					{
+						if(checkBomb(j,mouseDownX + checkBox[i][0],mouseDownY + checkBox[i][1]) === true)
+						{
+							++bombsSurronding; //increase the bomb count surronding that square	
+						}
+					}		
+				}
+				//console.log(bombsSurronding);
+			}
+
+			//check if any bombs are touching it box
+			function checkBomb(i,x,y){
+				if(bombs[i][0] === x && bombs[i][1] === y)
+				{
+					//console.log(i,x,y);
+					//console.log([mouseDownX,mouseDownY]);
+					return true;
+				}
+				return false;
+			}
+			
 			function lose(){}
 		</script>
 	</head>
