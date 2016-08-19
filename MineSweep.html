@@ -17,7 +17,8 @@
 			};
 
 			var context;
-			var bombs = []; //array for bombs			
+			var bombs = []; //array for bombs	
+			var	clickedBoxes = []; //clicked box array	
 			
 			window.onload = function(){
 				var canvas = document.getElementById("myCanvas"); //setting the canvas
@@ -60,12 +61,19 @@
 
 			}
 			
-			var box
+			var box;
+			var numberOfBombs;
+			var zeroBombs;
 
 			function startGame(){
 
 				box = new Image();
+				numberOfBombs = new Image();
+				zeroBombs = new Image();
+				
 				box.src = "box.png";
+				numberOfBombs.src = "numberOfBombs.png";
+				zeroBombs.src = "zeroBombs.png";
 
 				//for loop for randomly placing the bombs within the grid
 				//this floor loop places 10 bombs within the grid
@@ -95,7 +103,47 @@
 					{
 						var x = (j * setting.width);
 						var y = (i * setting.height);
-						context.drawImage(box,x,y);
+
+						var hasBeenClicked = [0,false];
+
+						if(clickedBoxes.length > 0)
+						{
+							for(var k = 0; k < clickedBoxes.length; ++k)
+							{
+								if(clickedBoxes[k][0] === j && clickedBoxes[k][1] === i)
+								{
+									hasBeenClicked = [k,true];
+								}
+							}
+						}
+							
+						if(hasBeenClicked[1] === true)
+						{
+							if(clickedBoxes[(hasBeenClicked[0])][2] > 0)
+							{
+								context.drawImage(numberOfBombs,x,y)
+							}
+							else
+							{
+								context.drawImage(zeroBombs,x,y)
+							}
+						}
+						else
+						{
+							context.drawImage(box,x,y)
+						}
+							
+						
+						//context.drawImage(box,x,y);
+					}
+				}
+
+				for (i in clickedBoxes)
+				{
+					if(clickedBoxes[i][2] > 0)
+					{
+						context.font = '20px arial';
+						context.fillText(clickedBoxes[i][2], clickedBoxes[i][0]*setting.width + 9,clickedBoxes[i][1]*setting.height + 21);
 					}
 				}
 			}
@@ -128,6 +176,10 @@
 						}
 					}		
 				}
+				clickedBoxes[(clickedBoxes.length)] = [mouseDownX,mouseDownY,bombsSurronding];
+
+				drawCanvas();
+		
 				//console.log(bombsSurronding);
 			}
 
