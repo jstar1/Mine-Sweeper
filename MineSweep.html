@@ -56,7 +56,7 @@
 
 				if(bombClicked === false)
 				{
-					clickPass();
+					clickPass(mouseDownX,mouseDownY);
 				}
 
 			}
@@ -149,7 +149,7 @@
 			}
 			
 			//function checks coords to see if box and touching any bombs
-			function clickPass(){
+			function clickPass(x,y){
 				var checkBox = [
 					[-1,-1],
 					[0,-1],
@@ -170,13 +170,38 @@
 
 					for(var j = 0; j < 10; ++j)
 					{
-						if(checkBomb(j,mouseDownX + checkBox[i][0],mouseDownY + checkBox[i][1]) === true)
+						if(checkBomb(j,x + checkBox[i][0],y+ checkBox[i][1]) === true)
 						{
 							++bombsSurronding; //increase the bomb count surronding that square	
 						}
 					}		
 				}
-				clickedBoxes[(clickedBoxes.length)] = [mouseDownX,mouseDownY,bombsSurronding];
+				clickedBoxes[(clickedBoxes.length)] = [x,y,bombsSurronding];
+
+				if(bombsSurronding === 0)
+				{
+					for(i in checkBox)
+					{
+						if(x + checkBox[i][0] >= 0 && checkBox[i][0] <= 9 && y + checkBox[i][1] >= 0 && y + checkBox[i][1] <= 9)
+						{
+							var x1 = x + checkBox[i][0];
+							var y1 = y + checkBox[i][1];
+
+							var previouslyClicked = false;
+							for(j in clickedBoxes)
+							{
+								if(clickedBoxes[j][0] === x1 && clickedBoxes[j][1] === y1)
+								{
+									previouslyClicked = true;
+								}
+							}
+							if(previouslyClicked === false)
+							{
+								clickPass(x1,y1);
+							}
+						}
+					}
+				}
 
 				drawCanvas();
 		
